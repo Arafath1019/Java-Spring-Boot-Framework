@@ -76,3 +76,9 @@ The @GeneratedValue annotation can be used with parameters alongside @Id to desi
 ```
 \d student
 ```
+
+### Packaging & Running Application
+* Clean the project: maven -> demo -> lifecycle -> clean
+* Install the project: maven -> demo -> lifecycle -> install
+* Navigate from terminal to project directory
+* Run the command: java -jar demo-0.0.1-SNAPSHOT.jar --server.port=8081
