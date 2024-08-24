@@ -42,3 +42,37 @@ In general, JAR files are preferable for deploying Spring Boot applications beca
 ### Starting the Server
 * Right click on pom.xml -> maven -> reaload project
 * From src -> main -> java -> com.example.demo -> DemoApplication, Run the main function to start the server
+
+### Create Database in postgres
+```angular2html
+CREATE DATABASE student;
+```
+
+### Some database operation from terminal
+* List of databases: \l
+* List of users to access db: \du
+* Provide access to database to a specific user
+```angular2html
+GRANT ALL PRIVILEGES ON DATABASE "student" TO postgres;
+```
+
+### @Entity
+This is an entity class that is annotated with “@Entity” annotation and the table will be created with the same name as this class.
+
+### @Table
+The @Table annotation allows you to specify the details of the table that will be used to persist the entity in the database.
+
+### @SequenceGenerator
+This annotation defines a primary key generator that may be referenced by name when a generator element is specified for the GeneratedValue annotation. A sequence generator may be specified on the entity class or on the primary key field or property.
+
+### @GeneratedValue
+The @GeneratedValue annotation can be used with parameters alongside @Id to designate how an entity's unique ID value will be generated. If no parameters are provided, the ID will be generated according to the default algorithm used by the underlying database.
+
+### Connected with database
+```angular2html
+\c student
+```
+### Describe the database
+```
+\d student
+```
