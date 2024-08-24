@@ -32,7 +32,7 @@ In general, JAR files are preferable for deploying Spring Boot applications beca
 * Spring boot - 3.3.3
 * Project Metadata as default
 * Packaging - Jar
-* Java - 22
+* Java - 17
 * Dependencies - Spring Web, Spring Data JPA, PostgreSQL Driver
 
 ### Development Tools Setup
