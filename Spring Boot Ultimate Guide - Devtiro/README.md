@@ -45,3 +45,15 @@ $ ./mvnw verify
 * cd target
 * java -jar jar_file_name
 * ./mvnw clean verify
+
+### Maven Spring Boot Plugin
+* Run spring boot project from terminal
+```
+$ ./mvnw spring-boot:run
+```
+
+### Spring Framework vs Spring Boot
+* Spring boot is a popular framework for building java applications
+* A framework is a chunk of code written on top of a language's core library to solve common problems.
+* Language's Core Lib -> Spring Framework -> Spring Boot -> Your App
+* Spring framework is highly configurable but it takes much efforts
