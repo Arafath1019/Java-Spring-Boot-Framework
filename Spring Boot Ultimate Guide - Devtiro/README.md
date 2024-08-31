@@ -37,3 +37,11 @@ $ ./mvnw verify
 ### Maven Project Structure
 * Link: https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html
 <img height="auto" width="auto" alt="Maven Project Directory" src="../images/1.png" />
+
+### Maven Workflow
+* ./mvnw compile
+* ./mvnw clean test
+* ./mvnw clean package
+* cd target
+* java -jar jar_file_name
+* ./mvnw clean verify
