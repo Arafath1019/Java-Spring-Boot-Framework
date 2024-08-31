@@ -33,3 +33,7 @@ $ ./mvnw test
 $ ./mvnw package
 $ ./mvnw verify
 ```
+
+### Maven Project Structure
+* Link: https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html
+<img height="auto" width="auto" alt="Maven Project Directory" src="../images/1.png" />
