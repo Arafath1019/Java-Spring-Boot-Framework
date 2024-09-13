@@ -147,3 +147,221 @@ public class TestService {
     }
 }
 ```
+
+### Spring Inversion of Control (IoC)
+Inversion of Control (IoC) is a fundamental concept in the Spring Framework. It refers to the principle where the control of object creation and management is handed over to a framework or container, rather than being controlled by the application code itself. The term "Inversion of Control" is used because the control flow of a program is inverted, shifting from the application code to the framework.
+
+In Spring, IoC is implemented through a design pattern known as Dependency Injection (DI). It allows developers to define dependencies between different objects and lets spring manage these dependencies at runtime.
+
+##### Key Concepts of IoC
+1. IoC Container: The Spring IoC container is responsible for managing the lifecycle, and dependencies of objects (bean) in the application. The containers creates objects, wires then together, configures them and manages their entire lifecycle based on the provided configuration.
+2. Dependency Injection: DI is the process of providing the dependencies that an object needs, rather than creating them within the object itself. Spring supports multiple forms of DI
+
+    - Constructor Injection: Dependencies are injected via the class constructor.
+    - Setter injection: Dependencies are injected using setter methods.
+    - Field injection: Dependencies are injected directly into class fields
+
+##### Why use IoC
+1. Loose coupling: IoC promotes loose coupling between classes, meaning objects are not tightly bound to the specific classes they depend on. Instead, dependencies are injected from the outside, making the system more modular and flexible.
+2. Better testability: Since objects are not responsible for creating their dependencies, it is easier to mock those dependencies during unit testing.
+3. Simplified object creation: The IoC container takes care of object creating, making it easier to manage complex object graphs in an application.
+
+#### Example
+##### Without IoC (Traditional Approach)
+```
+public class OrderService {
+    private PaymentService paymentService;
+
+    public OrderService() {
+        this.paymentService = new PaymentService();
+    }
+
+    public void processOrder() {
+        paymentService.processPayment();
+    }
+}
+
+public class PaymentService {
+    public void processPayment() {
+        System.out.println("Processing payment.....");
+    }
+}
+```
+
+##### With IoC (Using spring Dependency Injection)
+```
+1. PaymentService.java
+import org.springframework.stereotype.Service
+
+@Service
+public class PaymentService {
+    public void processPayment() {
+        System.out.println("Processing payment.....");
+    }
+}
+
+2. OrderService.java
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service
+
+@Service
+public class OrderService {
+    private PaymentService paymentService;
+
+    @Autowired
+    public OrderService(PaymentService paymentService){
+        this.paymentService = paymentService;
+    }
+
+    public void processOrder(){
+        paymentService.processPayment();
+    }
+}
+```
+
+Spring Boot Application Class
+```
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+
+@SpringBootApplication
+public class SpringIoCExampleApplication {
+    public static void main(String[] args) {
+        ApplicationContext context = SpringApplication.run(SpringIoCExampleApplication.class, args);
+    }
+
+    OrderService orderService = context.getBean(orderService.class);
+    orderService.processOrder();
+}
+```
+
+##### Spring IoC Container Type
+There are two types of IoC containers in Spring:
+1. BeanFactory: This is the simplest container in spring. It provides basic functionality for dependency injection. It uses lazy initialization, meaning beans are only instantiated when requested. It's lightweight but generally not recommended for complex applications.
+2. ApplicationContext: This is the most commonly used container in Spring. It is a superset of BeanFactory and provides more advanced features such as event propagation, declarative mechanisms to create a bean, internationalization (i18n), etc. It supports eager and lazy loading of beans.
+
+#### Dependency Injection Types in Spring
+1. Constructor Injection:
+```
+@Service
+public class OrderService {
+    private PaymentService paymentService;
+
+    @Autowired
+    public OrderService(PaymentService paymentService){
+        this.paymentService = paymentService;
+    }
+}
+```
+
+2. Setter Injection:
+```
+@Service
+public class OrderService{
+    private PaymentService paymentService;
+
+    @Autowired
+    public void setPaymentService(PaymentService paymentService){
+        this.paymentService = paymentService;
+    }
+}
+```
+
+3. Field Injection:
+```
+@Service
+public class OrderService {
+    @Autowired
+    private PaymentService paymentService;
+}
+```
+
+##### Bean Scope & Lifecycle in IoC
+Spring provides different scopes in beans:
+1. Singleton(default): Only one instance of the bean is created in the IoC container;
+2. Prototype: A new instance is created each time the bean is requested.
+3. Reques: One instance per HTTP request 
+4. Session: One instance per HTTP session
+
+```
+@Configuration
+public class AppConfig {
+    @Bean
+    @Scope("prototype")
+    public PaymentService paymentService() {
+        return new PaymentService();
+    }
+}
+```
+
+### Beans in Spring Boot
+In Spring Boot, a Bean is an object that is managed by the Spring IoC container. Beans from the backbone of a Spring Boot application, providing dependency management and ensuring that objects are correctly instantiated, configured and managed through the application's lifecycle.
+
+##### Key Concepts of Spring beans
+1. IoC
+2. Dependency Injection
+3. Singleton Beans: By default, spring beans are singleton scoped, meaning only one instance of the bean is created and shared across the application context.
+4. Bean lifecycle: A bean in Spring Boot follows a lifecycle. It is created, dependencies are injected, it is initialized and after that it can be destroyed when no longer needed.
+
+##### Defining Beans
+1. Using @Component, @Service, @Repository, @Controller annotations: These annotations automatically registered classes as beans when component scanning is enabled.
+```
+@Component
+public class MyBean {
+    public void doSomething(){
+        System.out.println("MyBean is working!");
+    }
+}
+```
+2. Using @Bean annotation: Explicitly declare a method that returns a bean and annotate it with @Bean within a @Configuration class.
+```
+@Configuration
+public class MyConfiguration {
+    @Bean 
+    public MyBean myBean() {
+        return new MyBean();
+    }
+}
+```
+
+Injecting Beans Using @Autowired
+```
+@Component
+public class MyService {
+    private MyBean myBean;
+
+    @Autowired
+    public MyService(MyBean myBean){
+        this.myBean = myBean;
+    }
+
+    public void process() {
+        myBean.doSomething();
+    }
+}
+```
+
+##### Bean Lifecycle callbacks
+1. Implementing InitializingBean and DisposableBean
+2. Using @PostConstruct and @PreDestroy annotations
+3. Defining custom methods with initMethod and destroyMethod.
+
+```
+@Component
+public class MyBean {
+    @PostConstruct
+    public void init() {
+        System.out.println("Bean is going through init.");
+    }
+
+    public void doSomething() {
+        System.out.println("Doing somtheing!");
+    }
+
+    @PreDestroy
+    public void destroy() {
+        System.out.println("Bean will be destroyed!");
+    }
+}
+```
