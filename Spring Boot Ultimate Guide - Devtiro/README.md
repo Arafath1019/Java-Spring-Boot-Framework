@@ -386,3 +386,42 @@ Steps in Component Scanning:
 * @ComponentScan: This annotation tells Spring to scan the base package for components.
 
 2. Detect Classes with Stereotype Annotations: Spring Boot will look for classes annotated with @Component, @Service, @Repository, @Controller or @RestController within the base package and register them as beans in the Spring Container.
+
+### Configuration Files
+The most commonly used configuration files in Spring Boot are:
+1. application.properties
+2. application.yml
+
+1. application.properties: This is the default configuration file format used in Spring Boot. It is based on key-value pairs, where each property key is followed by an equals sing(=) and its value.
+Example of application.properties:
+```java
+# Server Configuration
+server.port=8081
+
+# Database Configuration
+spring.datasource.url=jdbc:mysql://localhost:3306/mydb
+spring.datasource.username=root
+spring.datasource.password=secret
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# Loggin Configuration
+logging.level.org.springframework=DEBUG
+```
+
+2. application.yml: YAML is a more structured format and many developers prefer it because it is easier to read, especially for complex configurations.
+Example fo application.yml:
+```java
+server:
+    port: 8081
+
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/mydb
+        username: root
+        password: secret
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+    level:
+        prg.springframework: DEBUG
+```
