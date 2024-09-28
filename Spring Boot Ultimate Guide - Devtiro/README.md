@@ -4,7 +4,7 @@
 Maven is a popular, open-source build tool that automates the process of building and developing Java-based applications. 
 It's used to build, publish and deploy multiple projects at once to improve project management.
 Maven automates many tasks, including: Compiling source code, Managing dependencies, Assembling binary codes into packages, Executing test scripts and Building and documenting the lifecycle framework.
-Maven is based ont he Project Object Model (POM), which is a file that contains information about the project, such as its description, versioning, configuration management and dependencies.
+Maven is based on the Project Object Model (POM), which is a file that contains information about the project, such as its description, versioning, configuration management and dependencies.
 For example maven command: `./mvnw clean compile`
 
 ### Maven Concepts
@@ -365,3 +365,24 @@ public class MyBean {
     }
 }
 ```
+
+### Component Scanning
+Component scanning in Spring Boot is a mechanism that automatically detects and registers beans (components) into the Spring container. This feature reduces the need for manually declaring beans in the configuration files and allows the Spring Framework to manage the lifecycle of beans.
+
+Spring Boot uses component scanning to find classes that are annotated with specific annotations, which makes them eligible for being managed by Spring Container. When a class is detected, Spring creates a bean of that class and adds it to the ApplicationContext.
+
+The most common annotations that makes a class eligible for component scanning include:
+* @Component: Generic stereotype for any Spring-managed component.
+* @Service: Specialization of @Component to indicate a service class.
+* @Repository: Specialization of @Component used for DAO (Data Access Object) classes.
+* @Controller: Marks a class as a web controller (used in Spring MVC)
+* @RestController: A specialization of @Controller for REST APIs
+* @Configuration: Marks a class as a source of bean definitions.
+
+Steps in Component Scanning:
+1. Define the Base Packages: Spring will scan the base package (and its sub-packages) for classes annotated with specific stereotypes. In Spring Boot, the main application class, which is annotated with @SpringBootApplication, triggers the component scanning by default. The annotation @SpringBootApplication is a meta-annotation that includes:
+* @Configuration: Marks the class as a source of bean definitions.
+* @EnableAutoConfiguration: Enables Spring Boot's auto-configuration feature.
+* @ComponentScan: This annotation tells Spring to scan the base package for components.
+
+2. Detect Classes with Stereotype Annotations: Spring Boot will look for classes annotated with @Component, @Service, @Repository, @Controller or @RestController within the base package and register them as beans in the Spring Container.
