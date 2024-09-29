@@ -425,3 +425,57 @@ logging:
     level:
         prg.springframework: DEBUG
 ```
+
+### Environment Variables
+In a spring boot application, environment variables are used to configure application properties externally without hardcoding values in the source code or configuration files. This makes the application more flexible, secure and portable across different environments like development, staging and production.
+
+How Environment Variables Work in Spring Boot:
+1. Externalized Configuration:
+* application.properties or application.yml files
+* Command-line arguments
+* Environment variables
+* System Properties
+* Profiles (for different environments like dev, prod)
+
+2, Setting Environment Variables: Environment variables can be set at the system level, via Docker containers or in a CI/CD pipeline. They are injected into Spring Boot using a predefined naming convention or can be mapped manually.
+
+Accessing Environment Variables in Spring Boot:
+1. In application.properties or application.yml:
+```
+# application.properties
+db.url=${DATABASE_URL}
+db.username=${DATABASE_USERNAME}
+db.password=${DATABASE_PASSWORD}
+```
+
+If the environment variable isn't found, can be provided a default value:
+```
+db.url=${DATABASE_URL:jdbc:mysql://localhost:3306/mydb}
+```
+
+2. Using @Value Annotation: Environment variables can be injected directory into spring-managed beans using the @Value annotation
+```
+@Value("${DATABASE_URL}")
+private String databaseUrl;
+```
+
+3. Using @ConfigurationProperties: Spring Boot also allows binding environment variables to a class using @ConfigurationProperties
+```
+@ConfigurationProperties(prefix = "db")
+public class DatabaseConfig {
+    private String url;
+    private String username;
+    private String password;
+}
+```
+
+4. Using Environment Object: The Environment object can be used to access environment variables programmatically.
+```
+@Autowied
+private Environment env;
+
+public void printDatabaseUrl(){
+    String dbUrl = env.getProperty("DATABASE_URL");
+    System.out.println(dbUrl);
+}
+```
