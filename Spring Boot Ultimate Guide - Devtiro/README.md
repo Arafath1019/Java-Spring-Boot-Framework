@@ -479,3 +479,57 @@ public void printDatabaseUrl(){
     System.out.println(dbUrl);
 }
 ```
+
+### Database Layers
+1. Database Driver: The database driver is the lowest layer in the database access stack. It is the communication bridge between application and actual database. This driver implements the JDBC (Java Database Connectivity) API, which allows java applications to interact with database using SQL queries.
+For example: For a MySQL database, the driver is mysql-connector-java. For PostgreSQL it is postgresql. Key features are direct interaction with database, executes sql queries, updates and fetches results, converts database-specific data types into Java Types.
+
+To add a MySQL driver in pom.xml (Maven), 
+```
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifact>
+    <scope>runtime</scope>
+</dependency>
+```
+
+2. Spring JDBC: Spring JDBC provides a higher-level abstraction over raw JDBC API. It simplifies working with the database by reducing boilerplate code, such as managing Connection, Statement, ResultSet, and handling exceptions.
+```
+@Autowired
+private jdbcTemplate jdbcTemplate;
+
+public List<User> getAllUsers() {
+    String sql = "SELECT * FROM users";
+    return jdbcTemplate.query(sql, (rs, rowNum) -> 
+        new User(rs.getInt('id'), res.getString("name"))
+    );
+}
+```
+
+3. Spring Data JPA: Spring Data JPA sits on top of JPA (Java Persistence API) and is the highest level abstraction in the stack. It simplifies working with database even further by using object-relational mapping (ORM), allowing to interact with the database using java objects instead of raw sql queries. 
+Spring Data JPA usually works with Hibernate, the most popular JPA implementation.
+Key features are, can be defined repository interfaces without implementing any methods, and Spring Data JPA will automatically generate the required SQL queries based on method names, Java classes annotated with @Entity are mapped to database tables, allows defining custom query methods by following specific naming conventions such as findByName(), findByAgeGreaterThan() etc.
+
+```
+# Entity class
+@Entity
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.INDENTITY)
+    private Long id;
+    private String name;
+    private String email;
+}
+
+# Repository Interface
+public interface UserRepository extends JpaRepository<User, Long> {
+    List<User> findByName(String name);
+}
+
+# Usage
+@Autowired
+private UserRepository userRepository;
+public List<User> getUsersByName(String name) {
+    return userRepository.findByName(name);
+}
+```
