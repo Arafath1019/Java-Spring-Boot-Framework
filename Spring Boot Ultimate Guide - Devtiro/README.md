@@ -533,3 +533,65 @@ public List<User> getUsersByName(String name) {
     return userRepository.findByName(name);
 }
 ```
+
+
+### Lombok Library
+Lombok is a Java library tool that is used to minimize/remove the boilerplate code and save the precious time of developers during development by just using some annotations. It also increases the readability of the source code and saves space. Lombok adds all these boilerplate codes at the compile time in the ".class" file and not in our source code. 
+
+Without Lombok:
+```
+public class Employee {
+    private Integer employeeId;
+    private String name;
+
+    public Employee() {};
+
+    public Employee(Integer employeeId, String name) {
+        super();
+        this.employeeId = employeeId;
+        this.name = name;
+    }
+
+    public Integer getEmployeeId() {
+        return this.employeeId;
+    }
+
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee [" + "employeeId=" + employeeId + ", name=" + name + "]";
+     }
+}
+```
+
+With Lombok:
+```
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class Employee {
+    private @Getter @Setter Integer employeeId;
+    private @Getter @Setter String name;
+}
+```
+
+
+### H2 Database
+H2 is a lightweight and fast SQL database written in java. In can run in two modes: in-memory and embedded. 
