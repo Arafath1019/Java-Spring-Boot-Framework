@@ -39,3 +39,6 @@ public class Main {
 ```
 
 * Compile Java Code: `$javac filename.java`
+
+#### How Java Works
+<img src="../images/2.png" >
