@@ -42,3 +42,67 @@ public class Main {
 
 #### How Java Works
 <img src="../images/2.png" >
+
+### Variables
+* Java is Strongly Typed Language
+```
+public class Main {
+    public static void main(String args[]) {
+        int num1 = 5;
+        int num2 = 3;
+        int result = num1 + num2;
+        System.out.println(result);
+    }
+}
+```
+* Data Type -> Primitive Type
+    -> Integer -> int(4bytes), long(8bytes), short(2bytes), byte(1byte)
+    -> Float -> float(4bytes), double(8bytes)
+    -> Character -> char(2bytes)
+    -> Boolean -> True/False
+```
+public class Main {
+    public static void main(String args[]) {
+        int num1 = 9;
+        byte by = 127;
+        short sh = 558;
+        long l = 5854l;
+        float f = 5.8f;
+        double d = 5.8;
+        char c = 'k';
+        boolean b = true;
+    }
+}
+```
+
+### Literals
+Literals are the fixed values that write directly into code. They represent constant values of a particular data type - like numbers, characters, strings etc.
+```
+int number = 100;            // Integer literal
+float pi = 3.14f;            // Floating-point literal
+char grade = 'A';            // Character literal
+String name = "John";        // String literal
+boolean isPassed = true;     // Boolean literal
+String city = null;          // Null literal
+```
+
+### Type Conversion (Automatic/Implicit Casting)
+* Java automatically converts a smaller data type into a larger data type
+* It happens implicitly 
+* No data loss happens here
+```
+int a =10;
+long b = a;
+float c = b;
+```
+* Order of data types (small -> big)
+byte -> short -> int -> float -> double
+
+### Type Casting (Manual/Explicit Casting)
+* Manually convert a larger data type into a smaller data type
+* Have to tell Java what is trying to do
+* Risk of data loss if the value is too big
+```
+double d = 9.78;
+int i = (int) d;
+```
