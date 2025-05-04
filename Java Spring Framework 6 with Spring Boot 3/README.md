@@ -106,3 +106,46 @@ byte -> short -> int -> float -> double
 double d = 9.78;
 int i = (int) d;
 ```
+
+### Arithmetic Operators
+* Addition (+)
+* Subtraction (-)
+* Multiplication (*)
+* Division (/)
+* Modulus Operator to get reminder (%)
+* +=, -=, *=, /=, %=
+* Increment Operator -> i++ (post-increment), ++i (pre-increment)
+* Decrement Operator -> i-- (post-decrement), --i (pre-decrement)
+
+### Relational Operators
+* >, <, >=, <=, ==, !=
+
+### Logical Operator
+* &&, ||, !
+
+### If Else
+```
+if(condition) {
+    statement;
+} else {
+    statement;
+}
+```
+
+### If Else If
+```
+if(condition1) {
+    statement;
+} else if (condition2) {
+    statement;
+} else {
+    statement;
+}
+```
+
+### Ternary
+```
+condition ? statement1 : statement2;
+
+number i = n % 2 == 0 ? 10 : 15;
+```
