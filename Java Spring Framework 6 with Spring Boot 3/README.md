@@ -149,3 +149,61 @@ condition ? statement1 : statement2;
 
 number i = n % 2 == 0 ? 10 : 15;
 ```
+
+### Switch Statement
+```
+public class Main {
+    public static void main(String args[]) {
+        int n = 2;
+
+        switch(n) {
+            case 1:
+                System.out.println("One");
+                break;
+            case 2:
+                System.out.println("Two");
+                break;
+            default:
+                System.out.println("Default"); 
+        }
+    }
+}
+```
+
+### While Loop
+```
+public class Main {
+    public static void main(String args[]) {
+        int i = 1;
+
+        while(i <= 4) {
+            System.out.println("Hello " + i);
+            i++;
+        }
+    }
+}
+```
+
+### Do While Loop
+```
+public class Main {
+    public static void main(String args[]) {
+        int i = 1;
+        
+        do {
+            System.out.println("Hello " + i);
+        } while(n <= 4);
+    }
+}
+```
+
+### For Loop
+```
+public class Main {
+    public static void main(String args[]) {
+        for(int i = 0; i <= 4; i++) {
+            System.out.println("Hello " + i);
+        }
+    }
+}
+```
