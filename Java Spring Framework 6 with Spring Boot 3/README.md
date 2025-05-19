@@ -207,3 +207,61 @@ public class Main {
     }
 }
 ```
+
+### Class and Object theory
+* Object Oriented Programming
+* Object - Properties and Behavior
+* Class
+* Create a class file -> Compiled to create a byte code -> JVM run this byte code and object is created
+
+### Class and Object Practical
+```
+class Calculator{
+    public int add(int num1, int num2){
+        int result = num1 + num2;
+        return result; 
+    }
+}
+
+public class Demo {
+    public static void main(String a[]) {
+        int num1=4; 
+        int num2=5;
+
+        Calculator calc = new Calculator();
+        int result = calc.add(num1, num2);
+        System.out.println(result);
+    }
+}
+```
+
+### JDK, JRE, JVM
+
+* JDK (Java Development Kit) -> Convert the java code into byte code
+* JVM (Java Virtual Machine) -> Runs the Java Code
+* JRE (Java Runtime Environment) -> Provide the additional in-built classes for running java code
+
+### Methods
+```
+class Computer {
+    public void playMusic() {
+        System.out.println("Music Playing...");
+    }
+
+    public String getMeAPen(int cost) {
+        if(cost >= 10)
+            return "Pen";
+        
+        return "Nothing";
+    }
+}
+
+public class Demo {
+    public static void main(String a[]) {
+        Computer comp = new Computer();
+        comp.playMusic();
+        String str = comp.getMeAPen(12);
+        System.out.println(str);        
+    }
+}
+```
