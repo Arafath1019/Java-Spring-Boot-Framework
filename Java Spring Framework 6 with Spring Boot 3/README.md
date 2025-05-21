@@ -265,3 +265,28 @@ public class Demo {
     }
 }
 ```
+
+### Method Overloading
+```
+class Calculator {
+    public int add(int n1, int2){
+        return n1+n2;
+    }
+
+    public double add(double n1, int n2){
+        return n1+n2;
+    }
+
+    public int add(int n1, int n2, int n3){
+        return n1+n2+n3;
+    }
+}
+
+public class Demo {
+    public static void main(String a[]) {
+        Calculator calc = new Calculator();
+        calc.add(2,3);
+        calc.add(2,3,4);
+    }
+}
+```
