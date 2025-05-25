@@ -290,3 +290,167 @@ public class Demo {
     }
 }
 ```
+
+### Stack & Heap
+In java, stack & heap are two areas of memory used for different purposes:
+Stack:
+    * Stores: Local variables, method calls and references to objects
+    * Scope: Each thread has it's own stack
+    * Lifetime: Variables are created when a method is called and destroyed when the method exits
+    * Speed: Very fast access
+    * Memory Management: Handled automatically LIFO - Last In First Out
+    * Example:
+
+```
+    int x = 10;
+```
+
+Heap:
+    * Stores: All Java Objects (instances created with new)
+    * Scope: Shared among all threads
+    * Lifetime: Objects remain until they are no longer referenced and garbage collected
+    * Speed: Slower than stack
+    * Memory management: Managed by java garbage collector
+    * Example:
+```
+Calculator calc = new Calculator();
+```
+
+### Creation of Array
+```
+public class Demo {
+    public static void main(String a[]) {
+        int nums[] = {3,7,2,4};
+        nums[1] = 8;
+        System.out.println(nums[1]); // Output -> 8
+
+        int nums1[] = new int[4];
+        System.out.println(nums1[1]); // Output -> 0
+    }
+}
+```
+
+### Multi dimensional array
+```
+public class Demo {
+    public static void main(String a[]) {
+        int nums[][] = new int[3][4];
+
+        for(int i=0; i<3; i++) {
+            for(int j=0; j<4; j++) {
+                nums[i][j] = (int)(Math.random() * 10);
+            }
+        }
+
+        for(int i=0; i<3; i++){
+            for(int j=0; j<4; j++) {
+                System.out.print(nums[i][j]);
+            }
+            System.out.println();
+        }
+
+        for(int n[]: nums) {
+            for(int m: n) {
+                System.out.print(m + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+```
+
+### Jagged Array
+A jagged array in java is an array of arrays where each "row" can have a different length. Unlike a regular 2D array, jagged arrays do not require all inner arrays to be the same size.
+
+```
+public class JaggedArrayDemo {
+    public static void main(String a[]) {
+        int[][] jagged = new int[3][];
+
+        jagged[0] = new int[2]; // First row has 2 columns
+        jagged[1] = new int[4]; // Second row has 4 columns
+        jagged[2] = new int[3]; // Third row has 3 columns
+
+        // Assign values
+        jagged[0][0] = 1;
+        jagged[0][1] = 2;
+        jagged[1][0] = 3;
+        jagged[1][1] = 4;
+        jagged[1][2] = 5;
+        jagged[1][3] = 6;
+        jagged[2][0] = 7;
+        jagged[2][1] = 8;
+        jagged[2][2] = 9;
+
+        // Print jagged array
+        for (int i = 0; i < jagged.length; i++) {
+            for (int j = 0; j < jagged[i].length; j++) {
+                System.out.print(jagged[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+        for(int n[]: jagged) {
+            for(int m: n) {
+                System.out.println(m);
+            }
+        }
+    }
+}
+```
+
+### Drawbacks of array
+* Fixed size
+* Homogeneous data
+* No Built-in methods
+* Inefficient insert/delete
+* Wasted memory
+* No type safety for object arrays
+* No support for generics
+
+### Array of Objects
+```
+class Student {
+    int rollNo;
+    String name;
+    int marks;
+}
+
+public class Demo {
+    public static void main(String a[]) {
+        Student s1 = new Student();
+        s1.rollNo = 1;
+        s1.name = 'Navin';
+        s1.marks = 88;
+
+        Student s2 = new Student();
+        s2.rollNo=2;
+        s2.name = 'Pradip';
+        s2.marks = 90;
+
+        Student s[] = new Student[2];
+
+        for(int i=0; i<s.length; i++) {
+            System.out.println(s[i].name + ':' + s[i].marks);
+        }
+    }
+```
+
+### Enhanced Array
+```
+public class Demo {
+    public static void main(String a[]) {
+        int nums[] = new int[3];
+
+        for(int n: nums) {
+            System.out.println(n);
+        }
+
+        Student stds[] = new Student[3];
+
+        for(Student s: stds) {
+            System.out.println(s.name + ':' + s.marks);
+        }
+    }
+}
+```
