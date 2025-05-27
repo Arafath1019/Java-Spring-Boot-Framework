@@ -454,3 +454,169 @@ public class Demo {
     }
 }
 ```
+
+### What is String
+```
+public class Demo {
+    public static void main(String a[]) {
+        String name = new String("Yeasin");
+        String last_name = "Arafath";
+        System.out.println(name);
+        System.out.println(name.hashCode());
+        System.out.println("Hello " + name);
+        System.out.println(name.charAt(0));
+        System.out.println(name.concat("Hello"));
+    }
+}
+```
+
+### Mutable vs Immutable String
+```
+public class Demo {
+    public static void main(String a[]) {
+        String name = "navin";
+        name = name + " reddy";
+        System.out.println(name);
+
+        String s1 = "Navin";
+        String s2 = "Navin";
+        System.out.println(s1 == s2);
+    }
+}
+```
+* By default strings are immutable
+* Mutable -> Change (String Buffer, String Builder)
+* Immutable -> can't change
+
+### StringBuffer & StringBuilder
+In java, both StringBuffer & StringBuilder are used to create mutable strings. Unline String, which is immutable, these classes allow to change the contents without creating new objects.
+
+```
+public class Demo {
+    public static void main(String a[]) {
+        StringBuffer sb = new StringBuffer();
+        System.out.println(sb.capacity()); // By default Buffer size of StringBuilder is 16 bytes.
+
+        StringBuilder sb = new StringBuilder("Navin"); 
+        System.out.println(sb.capacity()); // Capacity is 21 bytes here
+        System.out.println(sb.length());
+
+        sb.append(" Reddy");
+        // Convert StringBuffer into String format
+        String str = sb.toString();
+
+        sb.deleteCharAt(2); 
+        sb.insert(0, "Java ");
+    }
+}
+```
+
+StringBuffer:
+    * Thread-safe (synchronized): Multiple threads can use it safely.
+    * Slower than StringBuilder due to synchronization
+    * Use when thread safety is required
+
+StringBuilder:
+    * Not thread-safe: Not safe for use by multiple threads
+    * Faster than StringBuffer
+    * Use when thread safety is not needed
+
+### Static Variable
+A static variable is a variable that belongs to the class, not to any specific object. It is shared among all instances/objects of that class. 
+
+* Declared using the static keyword
+* Only one copy exists, regardless of how many objects are created.
+* Can be accessed using the class name, (ClassName.variable)
+* Useful for values that should be common to all objects
+
+```
+class Calculator {
+    // Instance variable (unique for each object)
+    int price;
+
+    // Static variable (shared by all objects)
+    static String name;
+
+    public void show() {
+        // Local variable (exists only within this method)
+        String new_name;
+    }
+}
+
+public class Demo {
+    public static void main(String a[]) {
+        Calculator.name = "Sony"; // Set static variable
+        Calculator cal1 = new Calculator();
+        Calculator cal2 = new Calculator();
+        System.out.println(Calculator.name); // Output: Sony
+    }
+}
+```
+
+### Static method
+A static method belongs to the class, not to any specific object. It can be called without creating an instance of the class.
+
+* Declare using the static keyword
+* Can be accessed using the class name (ClassName.methodName())
+* Can only access static variables and other static methods directly
+* Cannot use this or super keywords
+
+```
+class Calculator {
+    static String name = "Sony";
+
+    static void showBrand() {
+        System.out.println("Brand: " + name);
+    }
+}
+
+public class Demo {
+    public static void main(String a[]) {
+        Calculator.showBrand();
+    }
+}
+```
+
+### Static block
+A static block is a block of code inside a class that is executed only once, when the class is loaded into memory (before any object is created or any static method is called).
+
+* Declared using static {..}
+* Used to initialize static variables or perform class-level setup
+* Runs automatically when the class is loaded
+
+```
+class Calculator {
+    static String brand;
+
+    // Static block
+    static {
+        brand = "Sony";
+        System.out.println("Static block is executed. Brand set to " + brand);
+    }
+}
+
+public class Demo {
+    public static void main(String a[]) {
+        System.out.println(Calculator.brand);
+    }
+}
+```
+
+### Class.forName
+It is a method used to load a class dynamically at runtime. It returns the Class object associated with the class or interface with the given string name.
+
+* Loads the class into memory
+* Executes static blocks and static initializations of the class
+* Commonly used for loading JDBC drivers or frameworks that require dynamic class loading
+
+```
+public class Demo {
+    static {
+        System.out.println("Static block executed!");
+
+        public static void main(String a[]) {
+            Class.forName("Demo");
+        }
+    }
+}
+```
