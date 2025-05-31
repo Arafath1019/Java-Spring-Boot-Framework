@@ -620,3 +620,228 @@ public class Demo {
     }
 }
 ```
+
+### Encapsulation
+Encapsulation is one of the fundamental concepts of OOP. It refers to the bundling of data(variables) and methods (functions) that operate on the data into a single unit, called a class. It also restricts direct access to some of the object's components, which is known as data hiding.
+* Achieved by declaring variables as private and providing public getter and setter methods to access and modify them.
+* Protects the internal state of an object from unintended or harmful changes.
+* Improves code maintainability and flexibility.
+
+```
+class Student {
+    private int marks;
+
+    public int getMarks() {
+        return marks;
+    }
+
+    public void setMarks(int marks) {
+        this.marks = marks;
+    }
+}
+
+public class Demo {
+    public static void main(String a[]) {
+        Student s = new Student();
+        s.setMarks(90);
+        System.out.println(s.getMarks());
+    }
+}
+```
+
+### Getters and Setters
+Getters and setters are special methods used to access and modify private variables of a class. They help achieve encapsulation by controlling how variables are accessed and updated.
+* Getter: Returns the value of a private variable
+* Setter: Sets or updates the value of a private variable
+
+```
+class Student {
+    private int marks;
+
+    public int getMarks() {
+        return marks;
+    }
+
+    public void setMarks(int marks) {
+        if(marks >= 0 && marks <= 100) { // validation
+            this.marks = marks;
+        }
+    }
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        Student s = new Student();
+        s.setMarks(85);
+        System.out.println(s.getMarks());
+    }
+}
+```
+
+### `this` keyword
+The `this` keyword in java is a reference variable that refers to the current object.
+
+* When local and instance variables have the same name, `this` helps to refer to the instance variable
+* Pass the current object as a parameter
+* Invoke current object's method or constructor
+
+```
+class Student {
+    private int marks;
+
+    public void setMarks(int marks) {
+        this.marks = marks;
+    }
+
+    public int getMarks() {
+        return this.marks;
+    }
+}
+```
+
+### Constructor
+A constructor is a special method in a class that is called automatically when an object is created. It's main purpose is to initialize the object's state (assign values to variables).
+
+* Has the same name as the class
+* Does not have a return type
+* Can be overloaded (multiple constructors with different parameters)
+* If no constructor is defined, Java provides a default constructor
+
+```
+class Student {
+    private int marks;
+
+    // Default constructor
+    public Student() {
+        marks = 0;
+    }
+
+    // Parameterized constructor
+    public Student(int marks) {
+        this.marks = marks;
+    }
+
+    public int getMarks() {
+        return this.marks;
+    }
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        Student s1 = new Student();
+        Student s2 = new Student(95);
+    }
+}
+```
+
+### Naming convention
+
+* Class Names: Use PascalCase (Example: Student, CalculatorDemo)
+* Method Names: Use camelCase (Example: getMarks(), setMarks(int marks))
+* Variable Names: Use camelCase (Example: studentName, totalMarks)
+* Constant Names: Use ALL_UPPERCASE (Example: MAX_SIZE, PI)
+* Package Name: Use all lowercase (Example: com.example.project)
+
+### Anonymous Object
+An anonymous object is an object that is created without assigning it to a reference variable. It is used only once, typically for calling a method immediately after creation.
+
+* No reference variable is used
+* The object cannot be reused
+* Useful for one-time method calls
+
+```
+Class Demo {
+    public void show() {
+        System.out.println("Hello");
+    }
+
+    public static void main(String[] args) {
+        new Demo().show();
+    }
+}
+```
+
+### Inheritance
+Inheritance is an important concept in OOP that allows one class(child/subclass) to inherit the properties and behaviors of another class (super/parent class).
+
+* Promotes code reusability
+* Support hierarchical inheritance
+* The `extends` keyword is used for inheritance
+* A subclass can add its own fields and methods or override parent methods
+
+* Single Inheritance: It means a class inherits from only one parent class.
+
+```
+class Animal {
+    public void eat() {
+        .....
+    }
+}
+
+class Dog extends Animal {
+    public void bark() {
+        ....
+    }
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.eat();
+        d.bark();
+    }
+}
+```
+
+* Multilevel Inheritance: Multilevel inheritance means a class inherits from a class, which in turn inherits from another class, forming a chain.
+
+```
+class Animal {
+    public void eat() {
+        ....
+    }
+}
+
+Class Dog extends Animal {
+    public void bark() {
+        ....
+    }
+}
+
+class Puppy extends Dog {
+    public void weep() {
+        .....
+    }
+}
+```
+
+### Multiple Inheritance
+Multiple inheritance means a class can inherit from more than one parent class.
+
+* Java does not support multiple inheritance with classes to avoid ambiguity (the "diamond problem"), reason if two parent classes have the same method, the compiler cannot decide which one to use.
+```
+class A {}
+class B {}
+class C extends A, B {} // This is not allowed
+```
+
+* Java supports multiple inheritance through interfaces.
+```
+interface A {
+    void show();
+}
+
+interface B {
+    void display();
+}
+
+class C implements A,B {
+    public void show() {
+        ....
+    }
+
+    public void display() {
+        ....
+    }
+}
+```
