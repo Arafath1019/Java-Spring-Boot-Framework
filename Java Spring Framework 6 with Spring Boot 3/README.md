@@ -1221,3 +1221,136 @@ int b = obj.intValue();
 Integer x = 5;
 int y = 5;
 ```
+
+### Abstract Keyword
+The abstract keyword is used to declare abstract classes and abstract methods.
+
+1. Abstract Class:
+* Can't be instantiated (can't create objects directly)
+* Can have abstract methods (without implementation) and concrete methods (with implementation)
+* Used as a base for other classes
+
+```
+abstract class Animal {
+    abstract void sound();
+    void eat() {
+        .....
+    }
+}
+```
+
+2. Abstract Method
+* Declared without a body (no implementation)
+* Must be implemented by subclass
+
+```
+abstract class Animal {
+    abstract void sound();
+}
+
+class Dog extends Animal {
+    @Override 
+    void sound() {
+        .....
+    }
+}
+```
+
+### Inner Class
+An inner class is a class defined within another class. Inner classes are used to logically group classes that are only used in one place, increase encapsulation, and can access members of the outer class.
+
+* Types of inner classes:
+    1. Member Inner Class (Regular Inner Class)
+    2. Static Nested Class
+    3. Local Inner Class (Defined inside a method)
+    4. Anonymous Inner Class
+
+* Member Inner Class (Regular Inner Class): 
+```
+class Outer {
+    int x =10;
+    
+    class Inner {
+        void display() {
+            ....
+        }
+    }
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        Outer outer = new Outer();
+        Outer.Inner inner = outer.new Inner();
+        inner.display();
+    }
+}
+```
+
+### Anonymous Inner Class
+An anonymous inner class is a type of inner class without a name. It is used to provide a quick implementation of an interface or abstract class, usually for one-time use.
+
+* Defined and instantiated in a single expression
+* Commonly used for event handling or passing short-lived implementations
+
+* Example: Implementing an interface
+```
+interface Animal {
+    void sound();
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        Animal dog = new Animal() {
+            @Override
+            public void sound() {
+                ....
+            }
+        };
+
+        dog.sound();
+    }
+}
+```
+
+* Example: Extending a class
+```
+class Person {
+    void great() {
+        ....
+    }
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        Person p = new Person(){
+            @Override
+            void great() {
+                ....
+            }
+        };
+
+        p.great();
+    }
+}
+```
+
+### Abstract & Anonymous Inner Class
+
+```
+abstract class A {
+    public abstract void show();
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        A a = new A() {
+            @Override
+            public void show() {
+                ....
+            }
+        };
+
+        a.show();
+    }
+}
+```
