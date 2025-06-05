@@ -845,3 +845,379 @@ class C implements A,B {
     }
 }
 ```
+
+### super method
+The super keyword in Java is used to refer to the immediate parent class.
+
+* Access parent class methods that are overridden in the child class
+* Access parent class variables when they are hidden by child class variables
+* Call the parent class constructor (using super())
+
+```
+class Animal {
+    public void eat() {
+        ....
+    }
+}
+
+class Dog extends Animal {
+    public void eat() {
+        ...
+    }
+
+    public void printEat() {
+        super().eat();
+    }
+}
+```
+
+* When create an object of a class, it will call the constructor of parent class & child class both
+```
+class A {
+    public void A() {
+
+    }
+}
+
+class B extends A {
+    public B () {
+        super();
+        ....
+    }
+
+    public B(int n) {
+        super();
+        ....
+    }
+}
+```
+
+* In java, every class extends Object class by default
+```
+class A extends Object {
+
+}
+```
+
+### this method
+The this keyword in java is a reference of the current object.
+
+* Call another constructor in the same class
+* Call another method of the same object
+
+```
+class Student {
+    private int marks;
+
+    public void setMarks(int marks) {
+        this.marks = marks;
+        this.display();
+    }
+
+    public void display() {
+        .....
+    }
+}
+```
+
+```
+class Student {
+    private int marks;
+
+    public Student() {
+        this(0);
+    }
+
+    public Student(int marks) {
+        this.marks = marks;
+    }
+}
+```
+
+* Use this.methodName() to call another method of the same object
+* Use this() to call another constructor in the same class.
+
+### Method overriding
+Method overriding occurs when a subclass provides a specific implementation for a method that is already defined in its parent class. The method in the child class must have the same name, return type and parameters as the method in the parent class.
+
+* Used to provide specific behavior in the subclass
+* Enables runtime polymorphism
+* The @Override annotation is often user for clarity
+
+```
+class Animal {
+    public void eat() {
+        ....
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    public void eat() {
+        .....
+    }
+}
+```
+
+### Packages
+A package in java is a namespace that organizes related classes and interfaces.
+Packages help avoid name conflicts, make code modular and provide access protection.
+
+* Packages group related classes together
+* Prevent naming conflicts (e.g. two classes with the same name in different packages)
+* Provide controlled access using access modifiers (public, protected, etc)
+* Java has built-in packages (e.g. java.util, java.io)
+
+```
+# Define a package
+package mypackage;
+
+public class MyClass {
+    public void show() {
+        ....
+    }
+}
+
+### Using a package in another class
+import mypackage.MyClass;
+
+public class Demo {
+    public static void main(String[] args) {
+        MyClass obj = new MyClass();
+        obj.show();
+    }
+}
+```
+
+* Packages are simply folder or nested folders
+* A file inside package or folder, declare the file as a package
+* Import the package for using the class
+
+### Maven Repository
+Maven Repository (often referred to as mvnrepository.com) is a central online storage location where java libraries, frameworks, plugins and other project dependencies are published and shared.
+
+* Used by Maven (a popular Java build tool) to download and managed project dependencies automatically.
+* Contains thousands of open source java libraries (JAR files)
+* Developers add dependencies to their pom.xml file, and maven fetches them from the repository
+* There are three main types: local, central and remote repository
+
+Example Dependency in pom.xml
+```
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+    <version>3.2.5</version>
+</dependency>
+```
+
+### Access Modifiers
+Access modifiers control the visibility and accessibility of classes, variables, methods and constructors. Java provides four main access modifiers:
+
+* Public: Accessible from anywhere
+* Protected: Accessible within the same packages and by subclasses (even in different packages)
+* Default: Accessible only within the same package
+* Private: Accessible only within the same class.
+
+```
+public class Demo {
+    public int a;
+    protected int b;
+    int c;
+    private int d;
+}
+```
+
+### Polymorphism (Many Behavior)
+Polymorphism is an OOP concept that means "many forms". In java, it allows objects to be treated as instance of their parent class rather than their actual class. There are two types:
+
+1. Compile-time Polymorphism (Method Overloading): 
+* Same method name with different parameters in the same class
+* Decided at compile time
+```
+class Calculator {
+    public int add(int a, int b) {
+        return a+b;
+    }
+
+    public int add(int a, int b, int c){
+        return a+b+c;
+    }
+}
+```
+
+2. Runtime Polymorphism (Method Overriding):
+* Subclass provides a specific implementation of a method already defined in its parent class
+* Decided at run time
+```
+class Animal {
+    public void sound() {
+        ....
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    public void sound() {
+        .....
+    }
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        Animal a = new Dog();
+        a.sound();
+    }
+}
+```
+
+### Dynamic Method Dispatch
+It is the mechanism by which a call to an overridden method is resolved at runtime, not compile time. It enables runtime polymorphism in java.
+
+* Achieved using method overriding and upcasting (Parent reference, child object)
+* The method to be executed is determined by the actual object type, not the reference type
+
+```
+class Animal {
+    public void sound() {
+        ...
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    public void sound() {
+        ....
+    }
+}
+
+public class Demo {
+    public static void main(String[] a){
+        Animal a = new Dog();
+        a.sound();
+    }
+}
+```
+
+### Final Keyword
+The final keyword in java is used to restrict the user in various ways. It can be applied to variables, methods and classes
+
+* Final Variable
+Value can connot be changed once assigned (acts as a constant)
+```
+final int MAX_VALUE = 100;
+```
+
+* Final Method
+Can't be overridden by subclass
+```
+class Animal {
+    public final void eat() {
+        ....
+    }
+}
+```
+
+* Final Class
+Can't be extended (no subclass can be created)
+```
+final class Animal {}
+```
+
+### Object class: equals(), toString(), hashCode()
+In Java, every class implicitly extends the Object class which provides some important methods:
+1. equals()
+* Used to compare two objects for equality
+* Default implementation compares references (memory addresses)
+* Can be overridden to compare object contents
+
+```
+class Student {
+    int id;
+    String name;
+
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+        if(obj == null || getClass() != obj.getClass()) return false;
+        Student s = (Student) obj;
+        return id == s.id && name.equals(s.name); 
+    }
+}
+```
+
+2. toString()
+* Returns a string representation of the object
+* Default: class name + @ + hashcode
+* Often overridden for meaningful output
+
+```
+class Student {
+    int id;
+    String name;
+
+    public String toString() {
+        return "Student{id=" + id + ", name'" + name + "'}";
+    }
+}
+```
+
+3. hashCode()
+* Returns an integer hash code for the object
+* Used in hashing-based collections (e.g. HashMap, HashSet)
+* Should be overridden when equals() in overridden
+
+```
+class Student {
+    int id;
+    String name;
+
+    public int hashCode() {
+        return id + name.hashCode();
+    }
+}
+```
+
+### Upcasting & Downcasting
+
+1. Upcasting
+* Converting a subclass reference to a superclass reference
+* Done automatically (implicitly)
+* Allows to use polymorphism 
+
+```
+class Animal {}
+class Dog extends Animal {}
+
+public class Demo {
+    public static void main(String[] args) {
+        Animal a = new Dog();
+    }
+}
+```
+
+2. Downcasting
+* Converting a superclass reference back to a subclass reference
+* Must be done explicitly 
+* Can cause ClassCastException if the object is not actually an instance of the subclass
+
+```
+Animal a = new Dog();
+Dog d = (Dog) a;
+```
+
+### Wrapper Class
+A wrapper class in java provides a way to use primitive data types (int, char, boolean) as objects. Each primitive type has a corresponding wrapper class in the java.lang package.
+
+* Needed when working with collections (like ArrayList, HashMap) which require objects, not primitives.
+* Provide utility methods for converting between types, parsing etc
+* Support for null values (primitive can't be null)
+* Primitive types and their wrapper class: byte(Byte), short(Short), int(Integer), long(Long), float(Float), double(Double), char(Char), boolean(Boolean)
+
+```
+int a = 10;
+Integer a = 10;
+Integer obj = Integer.valueOf(a);
+int b = obj.intValue();
+
+Integer x = 5;
+int y = 5;
+```
