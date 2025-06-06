@@ -1354,3 +1354,155 @@ public class Demo {
     }
 }
 ```
+
+### What is interface
+An interface in Java is a reference type, that can contain only abstract methods, default methods, static methods, constants. Interfaces are used to specify what a class must do, but not how to does it.
+
+* All methods in an interface are public and abstract by default
+* A class implements an interface using the implements keyword
+* A class can implement multiple interfaces
+* Interfaces can't be instantiated directly
+* One interface can extends another interface
+
+```
+interface Animal {
+    void sound();
+}
+
+class Dog implements Animal {
+    @Override 
+    public void sound() {
+        ....
+    }
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        Animal a = new Dog();
+        a.sound();
+    }
+}
+```
+
+### Need of interface
+
+* Achieve Abstraction
+* Multiple Inheritance
+* Loose Coupling
+* Standardization
+* Plug-and-plug Architecture
+
+### What is enum
+An enum (short for enumeration) in java is a special data type that defines a set of named constants. Enums are used to represent a fixed set of related values, such as days of the week, directions, or status code.
+
+* Enums are type-safe and can have fields, methods and constructors
+* Each value in an enum is an instance of the enum type.
+* Enums can be used in switch statements
+
+```
+enum Day {
+    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        Day today = Day.MONDAY;
+
+        switch(today) {
+            case MONDAY:
+                ....
+                break;
+            case FRIDAY: 
+                ...
+                break;
+            default:
+                ....
+        }
+    }
+}
+```
+
+### Enum Class
+An enum class in java is a special type of class that represents a group of constants. Enums are used when you have a fixed set of related constants, such as days of the week, directions or status code.
+
+* Enums are type-safe
+* Each value in an enum is an instance of the enum type
+* Enums can have fields, methods, and constructors
+* Can be used in switch statements
+
+```
+enum Status {
+    SUCCESS(200), ERROR(500);
+
+    private int code;
+
+    Status(int code) {
+        this.code = code;
+    }
+
+    public int getCode() {
+        return code;
+    }
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        Status s = Status.SUCCESS;
+        System.out.println(s + " code: " + s.getCode()); 
+    }
+}
+```
+
+### Annotations
+Annotations are special markers in Java that provide metadata (information) about code. They do not change the action of the code directly but can be used by the compiler or tools to generate code, check errors, or provide information at runtime.
+
+* Annotations start with @ (e.g., @Override, @Deprecated)
+* Used for compiler instructions, runtime processing and code generation
+* Common in frameworks like Spring, JUnit, Hibernate etc
+
+Common Built-in Annotations:
+* @Override - Indicates a method overrides a superclass method
+* @Deprecated - Marks a method/class as outdated
+* @SuppressWarnings - Tells the compiler to ignore specific warnings
+
+```
+class Animal {
+    @Deprecated
+    public void oldMethod() {
+        ...
+    }
+
+    @Override 
+    public String toString() {
+        ....
+    }
+}
+```
+
+### Types of interface
+
+1. Normal Interface / Regular Interface
+* Contains only abstract methods (until java 7)
+* From Java 8, can also have default and static method
+
+```
+interface Animal {
+    void sound();
+}
+```
+
+2. Functional Interface
+* An interface with exactly one abstract method
+* Can have multiple default or static methods
+* Used for lambda expressions
+* Marked with @FunctionalInterface annotation
+
+```
+@FunctionalInterface
+interface Drawable {
+    void draw();
+}
+```
+
+3. Marker Interface
+An interface with no methods or fields. Used to make a class for special behavior
