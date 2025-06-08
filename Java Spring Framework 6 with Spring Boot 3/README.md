@@ -1717,3 +1717,170 @@ public class Demo {
     }
 }
 ```
+
+### Ducking exceptions using throws
+Ducking an exception means passing the responsibility of handling an exception to the calling method, instead of handling it where it occurs. This is done using the throws keyword in the method signature.
+
+* Used to declare that a method might throw certain checked exceptions.
+* The caller of the method must handle or further declare the exception.
+
+```
+import java.io.IOException;
+
+public class Demo {
+    public static void readFile() throws IOException {
+        throw new IOException("File not found");
+    }
+
+    public static void main(String[] args) {
+        try {
+            readFile();
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+```
+
+### BufferReader
+
+```
+import java.io.BufferReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+public class Demo {
+    public static void main(String[] args) {
+        BufferReader br = new BufferReader(new InputStreamReader(System.in));
+        String name = br.readLine();
+        System.out.println(name);
+    }
+}
+```
+
+### Scanner 
+```
+import java.util.Scanner;
+
+public class Demo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int age = sc.nextInt();
+        System.out.println(age);
+    }
+}
+```
+
+### Try with resources
+The try-with-resources statement is used to automatically close resources (like files, streams, sockets) after use. Any object that implements the AutoCloseable interface can be used in try-with-resources.
+
+* No need to explicitly close resources in a finally block
+* Resources are closed automatically even if an exception occurs.
+
+```
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class Demo {
+    public static void main(String[] args) {
+        try (BufferedReader br = new BufferedReader(new FileReader("test.txt"))) {
+            String line = br.readLine();
+            System.out.println(line);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+```
+
+----------- Section 03 Remaining Part will be after this ---------
+
+### Maven Introduction
+Maven is a powerful build application and project management tool for java projects. It simplifies the process of building, testing and deploying java applications by managing dependencies, compiling code and running tests and packaging the application.
+
+* Dependency management: Automatically downloads and manages libraries (JAR) project needs.
+* Standard directory structure: Enforces a standard project layout.
+* Build lifecycle: Automates compiling, testing, packaging and deploying.
+* Plugins: Extensible with plugins for various tasks.
+* Project Object Model (POM): Uses a POM.xml file to configure the project, dependencies, plugins and build settings.
+
+Example pom.xml Dependency:
+```
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+    <version>3.2.5</version>
+</dependency>
+```
+
+### Maven in IDE
+Most modern IDEs like IntelliJ IDEA, Eclipse and VSCode provide built-in support for Maven, making it easy to manage dependencies, build and run Java projects.
+
+* Automatic Dependency Download: Add dependencies to pom.xml and the ide downloads them automatically.
+* Project Structure: IDE recognize Maven's standard directory layout.
+* Build & Run: Easily build, test and run maven projects with GUI buttons or context menus.
+* Lifecycle Management: Run maven goals (like clean, install, package) directly from the IDE
+* Plugin Integration: Use maven plugins for code analysis, testing and deployment within the IDE.
+* Create new project on IntelliJ IDEA (Create New Project -> set Name, Location, Build System and JDK -> Click Create)
+
+* Download & Install Apache Maven to local pc: https://maven.apache.org/
+
+### Archetype in maven:
+A Maven archetype is a template for generating a new Maven project structure. Archetypes provide a predefined project layout and sample files, making it easy to start new projects with best practices and standard configurations.
+
+* Archetypes help quickly scaffold mew projects (e.g., Java Application, web app, spring boot app)
+* The most common archetype is maven-archetype-quickstart for a basic java project. 
+* Can create own custom archetypes
+* Creating a project with an archetype: `mvn archetype:generate -DgroupId=com.example -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false`
+
+### Getting Dependencies
+In Maven, dependencies are external libraries that project needs. Declare them in pom.xml file, and Maven automatically downloads them from the Maven repository and adds them to projects classpath.
+
+* How to add a dependency:
+    1. Find the dependency on mvnrepository.com or another maven repository
+    2. Copy the <dependency> block for the library
+    3. Paste it inside the <dependencies> section of pom.xml file
+
+    ```
+        <dependencies>
+            <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
+            <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>9.3.0</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
+            <dependency>
+                <groupId>org.hibernate.orm</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>7.0.0.Final</version>
+            </dependency>
+        </dependencies>
+    ```
+    4. When build project (mvn clean install or via IDE), Maven downloads the specified dependencies and makes them available to project automatically
+
+### Effective POM
+The Effective POM is the final configuration of Maven project after combining pom.xml with all inherited settings from parent POMs, super POM, and active profiles. It shows the complete set of configurations, dependencies, plugins and settings that maven will use to build project
+
+* Combines project's pom.xml, parent POMs and maven's default super POM
+* Shows all inherited defines in pom.xml
+* Useful for debugging and understanding the actual build configuration
+* How to viw the effective pom: Command Line (mvn help:effective-pom) or IDE (Right-click the project → Maven → Show Effective POM (or similar option))
+
+### Maven in Eclipse
+Eclipse IDE for Enterprise Java and Web Developers. 
+* Click File -> New -> Maven Project -> Fill all settings
+
+### How maven works BTS
+
+1. Reads the pom.xml: 
+    * Maven starts by reading project's pom.xml file, which defines dependencies, plugins, build settings and project metadata.
+2. Build lifecycle & phases: 
+    * Maven uses a standard build lifecycle with phases like validate, compile, test, package, install and deploy.
+    * When run a command (e.g., mvn install) Maven executes all phases up to and including install
+3. Dependencies Resolution:
+    * Maven checks local repository (/.m2/repository) for required dependencies
+    * If a dependency is missing, Maven downloads it from the central repository and caches it locally
+    * Maven also resolves transitive depdencies
