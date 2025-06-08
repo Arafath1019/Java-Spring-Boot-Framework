@@ -1491,7 +1491,7 @@ interface Animal {
 }
 ```
 
-2. Functional Interface
+2. Functional Interface / SAM (Single Abstract Method Interface)
 * An interface with exactly one abstract method
 * Can have multiple default or static methods
 * Used for lambda expressions
@@ -1506,3 +1506,214 @@ interface Drawable {
 
 3. Marker Interface
 An interface with no methods or fields. Used to make a class for special behavior
+
+### Functional Interface / SAM (Single Abstract Method Interface)
+A functional interface is an interface that contains exactly one abstract method. It can have any number of default or static methods. Functional interfaces are used primarily for lambda expressions and method references.
+
+* Has only one abstract method (Single Abstract Method - SAM)
+* Can have multiple default or static methods
+* Marked with @FunctionalInterface annotation
+* Used extensively in Java's functional programming features
+
+```
+@FunctionalInterface
+interface Drawable {
+    void draw();
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        Drawable d = new Drawable() {
+            public void draw() {
+                ....
+            }
+        }
+
+        d.draw();
+    }
+}
+```
+
+### Lambda Expression
+
+A lambda expression is a concise way to represent an anonymous function (a function without a name) that can be passed as an argument or stored in a variable. Lambda expressions are used primarily to implement functional interfaces. 
+
+```
+@FunctionalInterface
+interface Drawable {
+    void draw();
+}
+
+public class Demo {
+    public static void main (String[] args) {
+        Drawable d = () -> System.out.println("Hello");
+
+        d.draw();
+    }
+}
+```
+
+* Used to provide implementation for functional interfaces
+* Makes code shorter and more readable
+* Commonly used with Java Streams and Collections API
+
+### Lambda Expression with return
+A lambda expression can return a value just like a regular method. If the lambda body has a single expression, the return keyword is optional. For multiple statements, use curly braces and an explicit return.
+
+```
+@FunctionalInterface
+interface Adder {
+    int add(int i, int j);
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        Adder a = (i, j) -> i+j;
+        int result = a.add(2,3);
+        System.out.println(result);
+    }
+}
+```
+
+### Errors
+An error in Java is a serious problem that occurs during the execution of a program and is typically not meant to be handled by the application code. Errors usually indicate issues with the environment or the Java Virtual Machine (JVM) itself, such as running out of memory or system resources.
+
+* Errors are represented by the Error class in Java
+* Errors are unchecked 
+* Most errors can't be recovered from by the program
+
+Types of Errors in Java:
+1. Compile-time error:
+    * Detected by the compiler before the program runs
+    * Examples: Syntax errors, missing semicolons, undeclared variables, type mismatches
+2. Runtime errors:
+    * Occur during program execution
+    * Examples: Division by zero, accessing invalid array index, null pointer access
+3. Logical Errors: 
+    * Program compiles and runs, but produces incorrect results due to mistakes in logic.
+    * Examples: Using the wrong formula for a calculation
+4. JVM Errors:
+    * Represented by subclasses of Error
+    * Examples: OutOfMemoryError, StackOverflowError, VirtualMachineError
+
+### What is Exception:
+An exception is an event that disrupts the normal flow of a program's execution. It occurs when an error happens during runtime, such as dividing by zero, accessing an invalid array index or trying to open a file that doesn't exist.
+
+* Exceptions are objects that represent errors or unusual conditions.
+* Java provides a robust exception handling mechanism using try, catch, finally, throw and throws
+* Exceptions can be checked or unchecked
+
+```
+public class Demo {
+    public static void main(String[] args) {
+        try {
+            int a = 10 / 0;   
+        } catch (ArithmeticException e) {
+            System.out.println(e.getMessage());
+        } 
+    }
+}
+```
+
+### Try with multiple catch
+```
+public class Demo {
+    public static void main(String[] args) {
+        try {
+            int[] arr = new int[3];
+            System.out.println(arr[5]);
+            int a = 10/0;
+        } catch(ArrayIndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
+        } catch(ArithmeticException e) {
+            System.out.println(e.getMessage());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+```
+
+### Exception Hierarchy
+
+```
+java.lang.Throwable
+   |
+   |-- java.lang.Error
+   |     (Serious problems, not meant to be caught)
+   |     |-- OutOfMemoryError
+   |     |-- StackOverflowError
+   |     |-- VirtualMachineError
+   |
+   |-- java.lang.Exception
+         (Conditions that a program might want to catch)
+         |
+         |-- java.lang.RuntimeException (Unchecked exceptions)
+         |     |-- NullPointerException
+         |     |-- ArithmeticException
+         |     |-- ArrayIndexOutOfBoundsException
+         |     |-- ClassCastException
+         |
+         |-- (Checked exceptions)
+               |-- IOException
+               |-- SQLException
+               |-- FileNotFoundException
+               |-- ClassNotFoundException
+```
+
+* Error: Serious issues related to the JVM or system
+* Exception: Issues that can be handled in code. Checked Exception must be handled or declared. Unchecked exception not required to be handled.
+
+### Exception throw keyword
+The Throw keyword is used to explicitly throw an exception in Java. It is often used to throw custom exceptions or to indicate an error condition in code.
+
+* Used inside a method or block to throw an exception object
+* Can throw both checked and unchecked exceptions
+* After throw, no code in the same block is executed
+
+```
+public class Demo {
+    public static void main(String[] args) {
+        try {
+            validateAge(15);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void validateAge(int age) {
+        if(age < 18) {
+            throw new ArithmeticException("Age must be 18 or above");
+        }
+
+        System.out.println("Access granted");
+    }
+}
+```
+
+### Custom Exception
+
+```
+class AgeException extends Exception {
+    public AgeException(String message) {
+        super(message);
+    }
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        try {
+            validateAge(15);
+        } catch(AgeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void validateAge(int age) {
+        if(age < 18) {
+            throw new AgeException("Age must be 18 or above");
+        }
+        System.out.println("Access Granted");
+    }
+}
+```
