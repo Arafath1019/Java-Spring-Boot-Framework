@@ -2237,3 +2237,182 @@ public class DemoJDBC {
     }
 }
 ```
+
+### What is Hibernate:
+
+Hibernate is a popular open-source Object-Relational Mapping (ORM) framework for Java. It simplifies database interactions by mapping Java objects (classes) to database tabales, allowing developers to work with databases using standard Java objects instead of SQL queries.
+
+- Automatic Table Mapping: Maps Java classes to database tables and Java fields to table columns.
+- Database Independence: Works with different databases without changing code.
+- HQL (Hibernate Query Language): Allows quering the database using object-oriented syntax.
+- Automatic CRUD operations: Handles create, read, update and delete operations automatically.
+- Caching: Improves performance by caching frequently used data.
+- Transaction Management: Integrates with Java transactions APIs.
+
+```
+// Example: Saving an object
+Session session = sessionFactory.openSession();
+Transaction tx = session.beginTransaction();
+Student s = new Student(1,'John', 90);
+session.save(s);
+tx.commit();
+session.close();
+```
+
+### Project Setup for Hibernate
+
+- Create a project (set name, location, Build System, JDK) and create
+- Create a package name `com.yeasin` inside src > main > java folder
+- Create a class name `Main.java` inside the package
+
+- Add this postgresql JDBC driver maven dependency in pom.xml file
+
+```
+<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>42.7.5</version>
+</dependency>
+```
+
+- Add this Hibernate maven dependency in pom.xml file
+
+```
+<!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
+<dependency>
+    <groupId>org.hibernate.orm</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>7.0.0.Final</version>
+</dependency>
+```
+
+### Save Data
+
+- Add the below dependencies in pom.xml file
+
+```
+<dependencies>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.6.3.Final</version>
+        </dependency>
+    </dependencies>
+```
+
+- Create a hibernate.cfg.xml file inside src > main and add this as JDBC postgresql driver connectivity
+
+```
+<hibernate-configuration xmlns="http://www.hibernate.org/xsd/orm/cfg">
+    <session-factory>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5433/demo</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">123</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+    </session-factory>
+</hibernate-configuration>
+```
+
+- Create a package com.yeasin inside src > main > java
+- Create Student class inside the package
+
+```
+package com.yeasin;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
+public class Student {
+    @Id
+    private int sid;
+    private String sname;
+    private int marks;
+
+    public int getSid() {
+        return sid;
+    }
+
+    public void setSid(int sid) {
+        this.sid = sid;
+    }
+
+    public String getSname() {
+        return sname;
+    }
+
+    public void setSname(String sname) {
+        this.sname = sname;
+    }
+
+    public int getMarks() {
+        return marks;
+    }
+
+    public void setMarks(int marks) {
+        this.marks = marks;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "sid=" + sid +
+                ", sname='" + sname + '\'' +
+                ", marks=" + marks +
+                '}';
+    }
+}
+```
+
+- Update the main class
+
+```
+package com.yeasin;
+
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class Main {
+    public static void main(String[] args) {
+       Student s1 = new Student();
+       s1.setSid(4);
+       s1.setSname("Yeasin Arafat");
+       s1.setMarks(25);
+
+       SessionFactory sf = new Configuration().addAnnotatedClass(com.yeasin.Student.class).configure().buildSessionFactory();
+       Session session = sf.openSession();
+
+       Transaction transaction = session.beginTransaction();
+       session.persist(s1);
+       transaction.commit();
+       session.close();
+       sf.close();
+
+       System.out.println(s1);
+    }
+}
+```
+
+### Show SQL config
+
+Add the below property in hibernate.cfg.xml file for:
+
+- To show SQL: `<property name="hibernate.show_sql">true</property>`
+- To show the formatter sql: `<property name="hibernate.format_sql">true</property>`
+- To set the DBMS dialect: `<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>`
+
+### Fetching the data
+
+```
+Student s2 = session.get(Student.class, 1);
+```
