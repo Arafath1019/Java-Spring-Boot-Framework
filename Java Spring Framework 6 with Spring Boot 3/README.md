@@ -2416,3 +2416,72 @@ Add the below property in hibernate.cfg.xml file for:
 ```
 Student s2 = session.get(Student.class, 1);
 ```
+
+--------- Section 06 Remaining Part will be after this -------
+
+### Introduction to Spring
+
+Spring is a powerful, lightweight and popular open-source framework for building enterprise Java applications. It provides comprehensive infrastructure support for developing Java applications easily and efficiently.
+
+- Inversion of Control (IoC): Manages object creation and dependencies using Dependency Injection (DI)
+- Aspect-Oriented Programming (AOP): Separates cross-cutting concerns (like logging, security) from business logic.
+- Modular: Can use only what need (Spring Core, Spring MVC, Spring Data, Spring Boot etc)
+- Transaction Management: Simplifies database transaction handling
+- Integration: Works well with other frameworks and technologies (Hibernate, JPA, JMS, etc)
+- Testability: Makes unit testing and integration testing easier.
+
+Why use Spring?
+
+- Reduces boilerplate code
+- Promotes loose coupling and easier maintainability
+- Provides a consistant programming model
+- Widely used in the industry for web, microservices and enterprise applications
+
+### Spring Docs
+
+- Sping Website: https://spring.io/
+- Spring Documentation: https://docs.spring.io/spring-framework/reference/index.html
+
+### IDE for Spring
+
+1. IntelliJ IDEA
+   - Widely used for Spring and Spring Boot development
+   - Excellent Spring integration, code completion and project templates
+2. Eclipse IDE
+   - Popular, free and extensible
+   - Support Spring development via plugins (Spring Tools, Spring IDE)
+3. VS Code
+   - Lightweight and fast
+   - Supports Spring Boot via extensions (e.g., Spring Boot Tools, Java Extension Pack)
+
+### IoC & DI
+
+Inversion of Control (IoC):
+
+- IoC is a design principle where the control of object creation and dependency management is transferred from the application code to a container or framework
+- In Spring, the IoC container is responsible for creating, configuring and managing the lifecycle of objects (beans)
+
+Dependency Injection (DI):
+
+- DI is a specific type of IoC where dependencies (objects a class needs) are provided to a class, rather than the class creating them itself.
+- In Spring, DI can be done via constructor injection, setter injection or field injection.
+
+```
+public class StudentService {
+    private StudentRepository repo;
+
+    public StudentService(StudentRepository repo) {
+        this.repo = repo;
+    }
+}
+```
+
+### Spring VS Spring Boot
+
+- Setup: Spring needs manual configuration, more boilerplate. Spring boot has auto-configuration, minimal setup.
+- Project type: Spring is general-purpose modular, spring boot is convention-over-configuration, rapid development
+- Dependencies: Spring add and manage dependencies manually. Spring boot starter dependencies simplify dependency management.
+- Embeded Server: Spring does not included any default. Spring boot comes with embedded servers (Tomcat, Jetty etc)
+- Production ready: Spring needs extra setup for monitoring, metrics, etc. Spring boot has built-in production features
+- Opinionated: Spring is flexible, but requires more decisions. Spring boot opinionated defaults for faster development
+- Main use: Spring is for large, complex or legacy enterprise projects. Spring boot is for Microservices, rest apis, quick prototypes.
