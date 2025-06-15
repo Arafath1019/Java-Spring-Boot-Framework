@@ -2485,3 +2485,129 @@ public class StudentService {
 - Production ready: Spring needs extra setup for monitoring, metrics, etc. Spring boot has built-in production features
 - Opinionated: Spring is flexible, but requires more decisions. Spring boot opinionated defaults for faster development
 - Main use: Spring is for large, complex or legacy enterprise projects. Spring boot is for Microservices, rest apis, quick prototypes.
+
+### First Spring Boot App
+
+1. Using VSCode
+
+   - Install "Extension Pack for Java" and "Spring Boot Extension Pack" extensions
+   - From view, click command Palette and type Spring Initilize and create a spring boot app
+
+2. Using IntelliJ IDEA
+
+   - Using create new project
+
+3. Using Spring Initializer Web
+   - Visit https://start.spring.io/ and create spring boot project
+
+### DI using Spring Boot
+
+Spring boot makes dependency injection (DI) easy by automatically managing beans and their dependencies using annotations.
+
+- Create a service class
+
+```
+import org.springframework.stereotype.Service;
+
+@Service
+public class StudentService {
+    public String getStudentName() {
+        return "John Doe";
+    }
+}
+```
+
+- Inject the Service into a Controller
+
+```
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class StudentController {
+
+    private final StudentService studentService;
+
+    // Constructor Injection (recommended)
+    @Autowired
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
+
+    @GetMapping("/student")
+    public String getStudent() {
+        return studentService.getStudentName();
+    }
+}
+```
+
+- @Service and @RestController mark classes as beans managed by spring boot
+- @Autowired tells Spring to inject the StudentService bean into the controller
+- Spring Boot automatically creates and wires the beans at runtime.
+
+### Autowiring in Spring Boot
+
+Autowiring in spring boot is the process where the Spring Framework automatically injects the required dependencies into beans at runtime.
+
+- Use the @Autowired annotation to let Spring resolve and inject the collaborating bean
+
+- Create a Laptop class
+
+```
+package org.yeasin.springbootdemo;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class Laptop {
+    public void compile() {
+        System.out.println("Laptop is compiling");
+    }
+}
+
+```
+
+- Create a Alient Class Autowiring Laptop bean
+
+```
+package org.yeasin.springbootdemo;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Alien {
+
+    @Autowired
+    Laptop laptop;
+
+    public void code() {
+        laptop.compile();
+    }
+}
+```
+
+- Spring Boot Application Main Class
+
+```
+package org.yeasin.springbootdemo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+
+@SpringBootApplication
+public class SpringBootDemoApplication {
+    public static void main(String[] args) {
+        ApplicationContext context = SpringApplication.run(SpringBootDemoApplication.class, args);
+        Alien obj = context.getBean(Alien.class);
+        obj.code();
+    }
+}
+
+```
+
+- @Autowired can be used on fields, constructor or setter methods
+- Spring Boot automatically scans and wires beans marked with @Component, @Service, @Repository, @Controller
+- Constructor injection is recommended for required dependencies

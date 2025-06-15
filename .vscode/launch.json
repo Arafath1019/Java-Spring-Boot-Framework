@@ -1,0 +1,28 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "com.yeasin.Main",
+            "projectName": "HibernateProject"
+        },
+        {
+            "type": "java",
+            "name": "SpringbootfirstApplication",
+            "request": "launch",
+            "mainClass": "com.yeasin.springbootfirst.SpringbootfirstApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-QuickstartApplication<quickstart>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.devtiro.quickstart.QuickstartApplication",
+            "projectName": "quickstart",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
