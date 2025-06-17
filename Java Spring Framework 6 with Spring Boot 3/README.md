@@ -2611,3 +2611,63 @@ public class SpringBootDemoApplication {
 - @Autowired can be used on fields, constructor or setter methods
 - Spring Boot automatically scans and wires beans marked with @Component, @Service, @Repository, @Controller
 - Constructor injection is recommended for required dependencies
+
+### Create Spring Project (Maven Project) Not Spring Boot
+
+- Using IntelliJ Idea, New Project -> Maven Archetype (Name, Location, JDK, Catalog, Archetype, Advanced Settings)
+- Add the Spring Context package to work with Spring ApplicationContext inside pom.xml
+
+```
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context</artifactId>
+    <version>6.2.7</version>
+</dependency>
+```
+
+- src -> main -> java -> org.yeasin -> App.java
+
+```
+package org.yeasin;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class App
+{
+    public static void main( String[] args )
+    {
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+        Alien alien = (Alien) context.getBean("alien");
+        alien.code();
+    }
+}
+
+```
+
+- src -> main -> java -> org.yeasin -> Alien.java
+
+```
+package org.yeasin;
+
+public class Alien {
+    public void code() {
+        System.out.println("Alien is coding");
+    }
+}
+
+```
+
+- src -> main -> resources -> spring.xml
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="alien" class="org.yeasin.Alien"></bean>
+
+</beans>
+```
