@@ -2671,3 +2671,100 @@ public class Alien {
 
 </beans>
 ```
+
+### Object Creation
+
+Spring creats objects on the below line
+
+`ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");`
+
+based on spring.xml file.
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="alien" class="org.yeasin.Alien"></bean>
+
+</beans>
+```
+
+Spring creates the objects of the including classes in spring.xml file. If a class is not defined in spring.xml file, then spring will not create not objects.
+
+### Bean Scopes in Spring:
+
+Spring provides several bean scopes that defines the lifecycle and visibility of beans managed by the Spring container.
+Scopes are:
+
+1. singleton: (Default) Only one instance per Spring container. Shared across the entire application.
+2. prototype: A new instance is created every time the bean is requested from the container.
+3. request: (Web Only) One instance per HTTP request.
+4. session: (Web Only) One instance per HTTP session.
+5. application: (Web Only) One instance per ServerlContext (application-wide)
+6. websocket: (Web Only) One instance per WebSocket session
+
+Setting Bean Scope:
+
+1. Annotation Based:
+
+```
+@Component
+@Scope("prototype")
+public class Alient {
+
+}
+```
+
+2. XML Based:
+
+```
+<bean id="alien" class="org.yeasin.Alient" scope="prototype" />
+```
+
+### Setter Injection
+
+Setter Injection is a type of Dependency Injection where the Spring container injects dependencies into a bean using setter methods.
+
+- Spring calls the public setter method of a bean after creating the bean instance
+- The dependency is passed as an argument to the setter method
+
+Annotation-based setter injection:
+
+```
+@Component
+public class Alien {
+    private Laptop laptop;
+    private int age;
+
+    @Autowired
+    public void Alien(Laptop laptop) {
+        this.laptop = laptop;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getAge() {
+        return this.age;
+    }
+
+    public void code() {
+        laptop.compile();
+    }
+}
+```
+
+XML-based setter injection:
+
+```
+<bean id="alien" class="org.yeasin.Alien">
+    <property name="laptop" ref="laptop" />
+    <property name="age" value="21" />
+</bean>
+
+<bean id="laptop" class="org.yeasin.Laptop"  />
+```
