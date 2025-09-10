@@ -1908,6 +1908,146 @@ public class Demo {
 }
 ```
 
+### Threads
+
+A thread in Java is a lightweight unit of a process that executes independently.
+
+- A process is a program in execution
+- A process can have multiple threads (multithreading)
+- All threads in a process share the same memory but run independently.
+
+Life Cycle of a Thread:
+A thread in java has several states:
+
+- New - Created but not started
+- Runnable - Ready to run but waiting for CPU
+- Running - Currently executing
+- Waiting / Timed waiting - Waiting for another thread to notify or for a timeout
+- Terminated - Finished execution
+
+Creating threads in Java:
+There are two main ways:
+
+1. Extending `Thread` class:
+
+```
+class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread running: " + Thread.currentThread().getName());
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        t1.start(); // start thread
+    }
+}
+```
+
+2. Implementing `Runnable` interface
+
+```
+class MyThread implements Runnable {
+    public void run(){
+        System.out.println("Runnable thread: " + Thread.currentThread().getName());
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Thread t1 = new Thread(new MyThread());
+        t1.start();
+    }
+}
+```
+
+\*\* Implementing `Runnable` interface is more flexible because Java allows multiple interface implementations.
+
+3. Using Lambda (Shorter)
+
+```
+public class Main {
+    public static void main(String[] args) {
+        Thread t1 = new Thread(() -> {
+            System.out.println("Lambda thread: " + Thread.currentThread().getName());
+        });
+
+        t1.start();
+    }
+}
+```
+
+Thread methods:
+
+- start() -> Starts the thread
+- run() -> Code execute inside thread
+- sleep(ms) -> Pause execution
+- join() -> Wait for a thread to finish
+- setPriority(int) -> set priority (1-10)
+- isAlive() -> Check if thread is still running
+
+Multithreading:
+
+```
+public class Main {
+    public static void main(String[] args) {
+        Thread t1 = new Thread(() -> {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println("Thread 1: " + i);
+                try { Thread.sleep(500); } catch (InterruptedException e) {}
+            }
+        });
+
+        Thread t2 = new Thread(() -> {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println("Thread 2: " + i);
+                try { Thread.sleep(500); } catch (InterruptedException e) {}
+            }
+        });
+
+        t1.start();
+        t2.start();
+    }
+}
+```
+
+Thread Synchronization:
+When multiple threads access shared data, race conditions can happen. Used `synchronized` keyword to prevent data corruption.
+
+```
+class Counter {
+    private int count = 0;
+
+    public synchronized void increment() {
+        count++;
+    }
+
+    public int getCount() { return count; }
+}
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        Counter counter = new Counter();
+
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) counter.increment();
+        });
+
+        Thread t2 = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) counter.increment();
+        });
+
+        t1.start();
+        t2.start();
+        t1.join();
+        t2.join();
+
+        System.out.println("Final Count: " + counter.getCount());
+    }
+}
+```
+
 ----------- Section 03 Remaining Part will be after this ---------
 
 ### Maven Introduction
@@ -2767,4 +2907,39 @@ XML-based setter injection:
 </bean>
 
 <bean id="laptop" class="org.yeasin.Laptop"  />
+```
+
+### Constructor Injection
+
+Constructor Injection is a type of Dependency Injection where the Spring container injects dependencies into a bean via its constructor. This is the recommended way for required dependencies, as it ensures that the bean is always created with all its required collaborators.
+
+Annotation-based Constructor Injection:
+
+```
+@Component
+public class Alien {
+    private final Laptop laptop;
+    private final int age;
+
+    @Autowired
+    public Alien(Laptop laptop){
+        this.laptop = laptop;
+        this.age = 21;
+    }
+
+    public void code() {
+        laptop.compile();
+    }
+}
+```
+
+XML-based Constructor Injection:
+
+```
+<bean id="alien" class="org.yeasin.Alien">
+    <constructor-arg ref="laptop" />
+    <constructor-arg value="21" />
+</bean>
+
+<bean id="laptop" class="org.yeasin.Laptop" />
 ```
