@@ -1962,7 +1962,7 @@ public class Main {
 }
 ```
 
-\*\* Implementing `Runnable` interface is more flexible because Java allows multiple interface implementations.
+Implementing `Runnable` interface is more flexible because Java allows multiple interface implementations.
 
 3. Using Lambda (Shorter)
 
@@ -2046,6 +2046,87 @@ public class Main {
         System.out.println("Final Count: " + counter.getCount());
     }
 }
+```
+
+### Collection API
+
+The Collections API in Java is a framework that provides architecture to store, manipulate and process groups of objects.
+
+- Framework, not a class - It's a set of interface, implementations (classes) and algorithms for working with groups of objects.
+- Unified architecture - Provides a common interface for different kind of collections (lists, sets, queues, maps)
+- Supports algorithms - Sorting, searching, shuffing, reversing, etc.
+- Works with Generics - Type-safe collections were introduced in java 5
+
+Hierarchy of Collections:
+
+```
+           Iterable (root interface)
+                 |
+             Collection
+        /           |         \
+     List          Set        Queue
+      |             |           |
+  ArrayList     HashSet     PriorityQueue
+  LinkedList    LinkedHashSet  ArrayDeque
+  Vector        TreeSet
+```
+
+Core interfaces:
+
+- Collection - Root interface for groups of objects
+- List - Ordered collection, allows duplicates (ArrayList, LinkedList, Vector)
+- Set - No duplicates, unordered (HashSet, LinkedHashSet, TreeSet)
+- Queue - FIFO, used for holding elements before processing. (PriorityQueue, ArrayDeque)
+- Deque - Double-ended queue
+- Map - Key-value pairs (HashMap, TreeMap, HashTable)
+
+Common Classes:
+
+- ArrayList - Resizable array
+- LinkedList - Doubly linked list
+- HashSet - Stores unique elements, uses hashing
+- TreeSet - Sorted unqiue elements (Red-Black Tree)
+- HashMap - Key-value pairs, no order
+- TreeMap - Sorted key-value pairs
+- Collections - Utility class
+
+```
+import java.util.*;
+
+public class CollectionExample {
+    public static void main(String[] args) {
+        // List Example
+        List<String> list = new ArrayList<>();
+        list.add("Java");
+        list.add("Python");
+        list.add("C++");
+        list.add("Java"); // allows duplicates
+        System.out.println("List: " + list);
+
+        // Set Example
+        Set<String> set = new HashSet<>(list); // removes duplicates
+        System.out.println("Set: " + set);
+
+        // Map Example
+        Map<Integer, String> map = new HashMap<>();
+        map.put(1, "Apple");
+        map.put(2, "Banana");
+        map.put(3, "Mango");
+        System.out.println("Map: " + map);
+
+        // Queue Example
+        Queue<String> queue = new LinkedList<>();
+        queue.add("Task1");
+        queue.add("Task2");
+        queue.add("Task3");
+        System.out.println("Queue: " + queue);
+
+        // Collections Utility
+        Collections.sort(list);
+        System.out.println("Sorted List: " + list);
+    }
+}
+
 ```
 
 ----------- Section 03 Remaining Part will be after this ---------
