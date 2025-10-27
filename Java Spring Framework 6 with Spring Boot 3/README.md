@@ -2129,6 +2129,242 @@ public class CollectionExample {
 
 ```
 
+### ArrayList
+
+ArrayList in Java is a resizable array implementation of the List interface — part of the Java Collections Framework (JCF). It allows you to store dynamically sized elements, unlike arrays with fixed lengths.
+
+- Package: java.util
+- Implements: List, RandomAccess, Cloneable, Serializable
+- Key feature: Automatically resizes when elements are added or removed.
+
+Syntax:
+
+```
+import java.util.ArrayList;
+
+ArrayList<Type> list = new ArrayList<>();
+```
+
+Example:
+
+```
+ArrayList<String> names = new ArrayList<>();
+```
+
+Common Operations:
+
+| Operation       | Method                      | Example                    |
+| --------------- | --------------------------- | -------------------------- |
+| Add element     | `add(E e)`                  | `names.add("Alice");`      |
+| Get element     | `get(int index)`            | `names.get(0);`            |
+| Update element  | `set(int index, E element)` | `names.set(1, "Bob");`     |
+| Remove element  | `remove(int index)`         | `names.remove(0);`         |
+| Size of list    | `size()`                    | `names.size();`            |
+| Check existence | `contains(Object o)`        | `names.contains("Alice");` |
+| Clear list      | `clear()`                   | `names.clear();`           |
+| Check empty     | `isEmpty()`                 | `names.isEmpty();`         |
+
+```
+import java.util.ArrayList;
+
+public class Example {
+    public static void main(String[] args) {
+        ArrayList<String> fruits = new ArrayList<>();
+
+        // Add elements
+        fruits.add("Apple");
+        fruits.add("Banana");
+        fruits.add("Cherry");
+
+        // Access elements
+        System.out.println("First fruit: " + fruits.get(0));
+
+        // Update element
+        fruits.set(1, "Mango");
+
+        // Remove element
+        fruits.remove("Cherry");
+
+        // Loop through list
+        for (String fruit : fruits) {
+            System.out.println(fruit);
+        }
+
+        // Size
+        System.out.println("Total fruits: " + fruits.size());
+    }
+}
+```
+
+Key Points:
+
+- Dynamic resizing: Automatically grows when elements exceed its current capacity.
+- Ordered: Maintains insertion order.
+- Allows duplicates.
+- Not thread-safe: Use Collections.synchronizedList() or CopyOnWriteArrayList for concurrency.
+- Random access: Fast for get() and set() due to array-based storage.
+
+Use ArrayList when:
+
+- You need fast random access.
+- You don’t frequently insert/remove elements in the middle.
+- You need an ordered, resizable list.
+
+### Set
+
+In Java, a Set is a collection that does not allow duplicate elements. It models the mathematical concept of a “set” — where each element is unique and the order usually doesn’t matter.
+
+Basic Overview:
+
+- Interface: java.util.Set<E>
+- Extends: Collection<E>
+- No duplicates: Adding a duplicate element has no effect.
+- Common Implementations:
+- HashSet — unordered, fastest
+- LinkedHashSet — maintains insertion order
+- TreeSet — sorted order (uses TreeMap internally)
+
+Syntax:
+
+```
+import java.util.Set;
+import java.util.HashSet;
+
+Set<Type> setName = new HashSet<>();
+```
+
+Example:
+
+```
+Set<String> names = new HashSet<>();
+```
+
+Common Operations:
+
+| Operation       | Method               | Example                          |
+| --------------- | -------------------- | -------------------------------- |
+| Add element     | `add(E e)`           | `names.add("Alice");`            |
+| Remove element  | `remove(Object o)`   | `names.remove("Alice");`         |
+| Check existence | `contains(Object o)` | `names.contains("Alice");`       |
+| Size of set     | `size()`             | `names.size();`                  |
+| Check empty     | `isEmpty()`          | `names.isEmpty();`               |
+| Clear all       | `clear()`            | `names.clear();`                 |
+| Iterate         | `for (E e : set)`    | `for (String s : names) { ... }` |
+
+```
+import java.util.HashSet;
+import java.util.Set;
+
+public class Example {
+    public static void main(String[] args) {
+        Set<String> fruits = new HashSet<>();
+
+        // Add elements
+        fruits.add("Apple");
+        fruits.add("Banana");
+        fruits.add("Cherry");
+        fruits.add("Apple"); // Duplicate ignored
+
+        // Display elements
+        System.out.println("Fruits: " + fruits);
+
+        // Check element
+        System.out.println("Contains Banana? " + fruits.contains("Banana"));
+
+        // Remove element
+        fruits.remove("Cherry");
+
+        // Iterate
+        for (String fruit : fruits) {
+            System.out.println(fruit);
+        }
+
+        System.out.println("Total fruits: " + fruits.size());
+    }
+}
+```
+
+### Map
+
+In Java, a Map is a collection that stores data in key-value pairs, where each key is unique and maps to exactly one value.
+
+It’s one of the core interfaces of the Java Collections Framework (JCF), located in java.util.
+
+🧩 Basic Overview:
+
+- Interface: java.util.Map<K, V>
+- Stores pairs: Each entry is a key → value mapping.
+- No duplicate keys: Adding an existing key replaces its value.
+- Common Implementations:
+- HashMap — unordered, fastest
+- LinkedHashMap — maintains insertion order
+- TreeMap — sorted by keys
+
+Syntax:
+
+```
+import java.util.Map;
+import java.util.HashMap;
+
+Map<KeyType, ValueType> mapName = new HashMap<>();
+```
+
+Example:
+
+```
+Map<Integer, String> students = new HashMap<>();
+```
+
+Common Operations:
+
+| Operation             | Method                        | Example                     |
+| --------------------- | ----------------------------- | --------------------------- |
+| Add key-value pair    | `put(K key, V value)`         | `map.put(1, "Alice");`      |
+| Get value             | `get(Object key)`             | `map.get(1);`               |
+| Remove entry          | `remove(Object key)`          | `map.remove(1);`            |
+| Check key existence   | `containsKey(Object key)`     | `map.containsKey(2);`       |
+| Check value existence | `containsValue(Object value)` | `map.containsValue("Bob");` |
+| Size                  | `size()`                      | `map.size();`               |
+| Get all keys          | `keySet()`                    | `map.keySet();`             |
+| Get all values        | `values()`                    | `map.values();`             |
+| Get all entries       | `entrySet()`                  | `map.entrySet();`           |
+| Clear all             | `clear()`                     | `map.clear();`              |
+
+```
+import java.util.HashMap;
+import java.util.Map;
+
+public class Example {
+    public static void main(String[] args) {
+        Map<Integer, String> students = new HashMap<>();
+
+        // Add key-value pairs
+        students.put(1, "Alice");
+        students.put(2, "Bob");
+        students.put(3, "Charlie");
+
+        // Access a value
+        System.out.println("Student with ID 2: " + students.get(2));
+
+        // Update value
+        students.put(2, "David");
+
+        // Remove a key
+        students.remove(3);
+
+        // Loop through keys
+        for (Integer id : students.keySet()) {
+            System.out.println("ID: " + id + ", Name: " + students.get(id));
+        }
+
+        // Loop through entries
+        for (Map.Entry<Integer, String> entry : students.entrySet()) {
+            System.out.println(entry.getKey() + " → " + entry.getValue());
+        }
+    }
+}
+```
+
 ----------- Section 03 Remaining Part will be after this ---------
 
 ### Maven Introduction
